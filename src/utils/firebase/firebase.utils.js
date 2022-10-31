@@ -1,10 +1,5 @@
 import { initializeApp } from "firebase/app"
-import {
-  getAuth,
-  signInWithRedirect,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth"
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -16,24 +11,18 @@ const firebaseConfig = {
   appId: "1:1072775647477:web:2ab2514311a7ad4f9ab5bc",
 }
 
-const firebaseApp = initializeApp(firebaseConfig)
+initializeApp(firebaseConfig)
 
-const provider = new GoogleAuthProvider()
-provider.setCustomParameters({ prompt: "select_account" })
+const googleProvider = new GoogleAuthProvider()
+googleProvider.setCustomParameters({ prompt: "select_account" })
 
 export const auth = getAuth()
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
-
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const db = getFirestore()
 
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, "users", userAuth.uid)
-
-  console.log(userDocRef)
-
   const userSnapshot = await getDoc(userDocRef)
-  console.log(userSnapshot)
-  console.log(userSnapshot.exists())
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth
