@@ -25,7 +25,6 @@ const SignInForm = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log("handleSubmit");
     event.preventDefault();
 
     try {
@@ -33,25 +32,28 @@ const SignInForm = () => {
       alert("User signed in successfully");
       setFormFields(defaultFormFields);
     } catch (error) {
-      if (error.code === "auth/user-not-found") {
-        alert("User not found");
-      } else if (error.code === "auth/wrong-password") {
-        alert("Wrong password");
-      } else {
-        alert("Error signing in user", error);
+      switch (error.code) {
+        case "auth/user-not-found":
+          alert("User not found");
+          break;
+        case "auth/wrong-password":
+          alert("Wrong password");
+          break;
+        default:
+          alert("Error signing in");
+          console.log("sign in encountered an error", error);
       }
     }
   };
 
   const signInWithGoogle = async () => {
-    console.log("signing in with google");
     const { user } = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
   };
 
   return (
     <div className="sign-in-container">
-      <h1>I already have an account</h1>
+      <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -71,9 +73,9 @@ const SignInForm = () => {
           onChange={handleChange}
         />
         <div className="buttons-container">
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">SIGN IN</Button>
           <Button type="button" onClick={signInWithGoogle} buttonType="google">
-            Sign In With Google
+            GOOGLE SIGN IN
           </Button>
         </div>
       </form>
