@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -47,8 +48,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   return (
