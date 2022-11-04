@@ -1,4 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+
+const addCartItem = (cartItems, productToAdd) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  );
+
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
+  }
+  return [...cartItems, { ...productToAdd, quantity: 1 }];
+};
 
 export const CartContext = createContext({
   hidden: true,
@@ -17,23 +32,28 @@ export const CartProvider = ({ children }) => {
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
-  const toggleHidden = () => setHidden(!hidden);
-  const addItem = (item) => {
-    const existingCartItem = cartItems.find(
-      (cartItem) => cartItem.id === item.id
+  useEffect(() => {
+    const itemCount = cartItems.reduce(
+      (accumulatedQuantity, cartItem) =>
+        accumulatedQuantity + cartItem.quantity,
+      0
     );
-    if (existingCartItem) {
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
-    }
+    setCartItemsCount(itemCount);
+
+    const total = cartItems.reduce(
+      (accumulatedQuantity, cartItem) =>
+        accumulatedQuantity + cartItem.quantity * cartItem.price,
+      0
+    );
+    setCartTotal(total);
+  }, [cartItems]);
+
+  const toggleHidden = () => setHidden(!hidden);
+
+  const addItemToCart = (product) => {
+    setCartItems(addCartItem(cartItems, product));
   };
+
   const removeItem = (item) => {
     const existingCartItem = cartItems.find(
       (cartItem) => cartItem.id === item.id
@@ -50,14 +70,16 @@ export const CartProvider = ({ children }) => {
       );
     }
   };
+
   const clearItemFromCart = (item) => {
     setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
   };
+
   const value = {
     hidden,
     toggleHidden,
     cartItems,
-    addItem,
+    addItemToCart,
     removeItem,
     clearItemFromCart,
     cartItemsCount,
