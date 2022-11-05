@@ -12,11 +12,7 @@ const DirectoryItem = ({ category }) => {
 
   return (
     <DirectoryItemContainer>
-      <BackgroundImageContainer
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
-      />
+      <BackgroundImageContainer imageUrl={imageUrl} />
       <BodyContainer onClick={() => navigate(`shop/${title}`)}>
         <h2>{title.toUpperCase()}</h2>
         <p>Shop Now</p>
