@@ -1,4 +1,6 @@
-.product-card-container {
+import styled from "styled-components";
+
+export const ProductCardContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -27,18 +29,21 @@
       display: flex;
     }
   }
-  .product-footer {
-    width: 100%;
-    height: 5%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    .product-name {
-      width: 90%;
-      margin-bottom: 15px;
-    }
-    .product-price {
-      width: 10%;
-    }
-  }
-}
+`;
+
+export const ProductFooterContainer = styled.div`
+  width: 100%;
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+`;
+
+export const ProductNameContainer = styled.span`
+  width: 90%;
+  margin-bottom: 15px;
+`;
+
+export const ProductPriceContainer = styled.span`
+  width: 10%;
+`;
