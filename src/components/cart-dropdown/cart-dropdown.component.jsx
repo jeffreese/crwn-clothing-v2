@@ -11,14 +11,18 @@ const CartDropdown = () => {
   const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
+  const goToCheckoutHandler = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div className="cart-dropdown-container">
       <div className="cart-items">
         {cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} product={cartItem} />
+          <CartItem key={cartItem.id} cartItem={cartItem} />
         ))}
       </div>
-      <Button onClick={() => navigate("/checkout")}>GO TO CHECKOUT</Button>
+      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
     </div>
   );
 };

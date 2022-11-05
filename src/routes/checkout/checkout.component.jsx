@@ -1,60 +1,39 @@
 import { useContext } from "react";
 
 import { CartContext } from "../../context/cart.context";
+import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+
+import "./checkout.styles.scss";
 
 const Checkout = () => {
-  const { cartItems, cartTotal, clearItemFromCart, addItemToCart, removeItem } =
-    useContext(CartContext);
+  const { cartItems, cartTotal } = useContext(CartContext);
 
   return (
     <div className="checkout-container">
       <div className="checkout-header">
         <div className="header-block">
           <span>Product</span>
+        </div>
+        <div className="header-block">
           <span>Description</span>
+        </div>
+        <div className="header-block">
           <span>Quantity</span>
+        </div>
+        <div className="header-block">
           <span>Price</span>
+        </div>
+        <div className="header-block">
           <span>Remove</span>
         </div>
+      </div>
 
-        {cartItems.map((cartItem) => {
-          const { id, imageUrl, name, quantity, price } = cartItem;
+      {cartItems.map((cartItem) => (
+        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+      ))}
 
-          return (
-            <div className="checkout-item" key={id}>
-              <div className="image-container">
-                <img src={imageUrl} alt="item" />
-              </div>
-              <span className="name">{name}</span>
-              <div className="quantity-container">
-                <span
-                  className="quantity-down"
-                  onClick={() => removeItem(cartItem)}
-                >
-                  -
-                </span>
-                <span className="quantity">{quantity}</span>
-                <span
-                  className="quantity-up"
-                  onClick={() => addItemToCart(cartItem)}
-                >
-                  +
-                </span>
-              </div>
-              <span className="price">{price}</span>
-              <div
-                className="remove-button"
-                onClick={() => clearItemFromCart(cartItem)}
-              >
-                X
-              </div>
-            </div>
-          );
-        })}
-
-        <div className="total">
-          <span>TOTAL: ${cartTotal}</span>
-        </div>
+      <div className="total">
+        <span>TOTAL: ${cartTotal}</span>
       </div>
     </div>
   );
