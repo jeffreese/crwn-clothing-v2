@@ -7,13 +7,15 @@ import {
 } from "./directory-item.styles";
 
 const DirectoryItem = ({ category }) => {
-  const { title, imageUrl } = category;
+  const { title, imageUrl, route } = category;
   const navigate = useNavigate();
+
+  const onNavigateHandler = () => navigate(route);
 
   return (
     <DirectoryItemContainer>
       <BackgroundImageContainer imageUrl={imageUrl} />
-      <BodyContainer onClick={() => navigate(`shop/${title}`)}>
+      <BodyContainer onClick={onNavigateHandler}>
         <h2>{title.toUpperCase()}</h2>
         <p>Shop Now</p>
       </BodyContainer>
