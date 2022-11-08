@@ -14,17 +14,7 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isCartOpen: payload,
       };
-    case CART_ACTION_TYPES.ADD_ITEM:
-      return {
-        ...state,
-        cartItems: payload,
-      };
-    case CART_ACTION_TYPES.REMOVE_ITEM:
-      return {
-        ...state,
-        cartItems: payload,
-      };
-    case CART_ACTION_TYPES.CLEAR_ITEM_FROM_CART:
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
       return {
         ...state,
         cartItems: payload,

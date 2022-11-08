@@ -20,7 +20,7 @@ export const addItem = (cartItems, productToAdd) => {
     newCartItems = [...cartItems, { ...productToAdd, quantity: 1 }];
   }
 
-  return createAction(CART_ACTION_TYPES.ADD_ITEM, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 export const removeItem = (cartItems, productToRemove) => {
@@ -41,12 +41,12 @@ export const removeItem = (cartItems, productToRemove) => {
     );
   }
 
-  return createAction(CART_ACTION_TYPES.REMOVE_ITEM, newCartItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
 export const clearItemFromCart = (cartItems, productToClear) => {
   return createAction(
-    CART_ACTION_TYPES.CLEAR_ITEM_FROM_CART,
+    CART_ACTION_TYPES.SET_CART_ITEMS,
     cartItems.filter((cartItem) => cartItem.id !== productToClear.id)
   );
 };
