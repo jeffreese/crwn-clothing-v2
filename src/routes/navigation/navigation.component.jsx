@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { selectCartHidden } from "../../store/cart/cart.selector";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
@@ -20,7 +20,7 @@ import {
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const hidden = useSelector(selectCartHidden);
+  const cartIsOpen = useSelector(selectIsCartOpen);
 
   return (
     <>
@@ -41,7 +41,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </NavLinks>
-        {!hidden && <CartDropdown />}
+        {cartIsOpen && <CartDropdown />}
       </NavigationContainer>
       <Outlet />
     </>

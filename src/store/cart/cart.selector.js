@@ -19,7 +19,7 @@ export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
   )
 );
 
-export const selectCartHidden = createSelector(
+export const selectIsCartOpen = createSelector(
   [selectCartReducer],
-  (cartSlice) => cartSlice.hidden
+  (cartSlice) => cartSlice.isCartOpen
 );
