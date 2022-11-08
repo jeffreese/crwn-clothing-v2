@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 
 import { getCurrentUser } from "./utils/firebase/firebase.utils";
 
@@ -16,9 +16,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrentUser().then((user) => {
-      dispatch(setCurrentUser(user));
-    });
+    dispatch(checkUserSession());
   }, []);
 
   return (

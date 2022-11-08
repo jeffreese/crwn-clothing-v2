@@ -34,8 +34,7 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
+
 export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
@@ -89,8 +88,11 @@ export const createUserDocumentFromAuth = async (
       console.log("Error creating user", error.message);
     }
   }
-  return userDocRef;
+  return userSnapshot;
 };
+
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 
 export const signInUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
